@@ -1,5 +1,5 @@
 /* Import Google Font */
-@import url('https://fonts.googleapis.com');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
 :root {
     --glass: rgba(255, 255, 255, 0.03);
@@ -36,7 +36,8 @@ body {
     background-size: 400% 400%;
     animation: ultimateRunning 15s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
     overflow-x: hidden;
-    cursor: url('roket.png'), auto !important;
+    /* Perbaikan Path Kursor untuk GitHub */
+    cursor: url('./roket.png'), auto !important;
 }
 
 @keyframes ultimateRunning {
@@ -46,20 +47,35 @@ body {
     75% { background-position: 50% 0%; }
     100% { background-position: 0% 50%; }
 }
-a, button, .proyek-card, .medsos-item, .btn-hero, .btn-window, nav ul li a, .logo, section {
-    cursor: url('roket.png'), pointer !important;
+
+/* Selector digabung dengan benar agar tidak error */
+a, 
+button, 
+.proyek-card, 
+.medsos-item, 
+.btn-hero, 
+.btn-window, 
+nav ul li a, 
+.logo, 
+section {
+    cursor: url('./roket.png'), pointer !important;
 }
+
 /* --- NAVIGATION --- */
 header {
     position: fixed;
-    top: 0;
-    width: 100%;
+    top: 20px; /* Sesuai gaya Floating Island Anda */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 1000px;
     z-index: 1000;
-    padding: 1.2rem 5%;
-    background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(25px) saturate(180%);
-    -webkit-backdrop-filter: blur(25px) saturate(180%);
-    border-bottom: 0.5px solid var(--glass-border);
+    padding: 0.8rem 2.5%;
+    background: rgba(10, 10, 10, 0.4);
+    backdrop-filter: blur(30px) saturate(200%);
+    -webkit-backdrop-filter: blur(30px) saturate(200%);
+    border: 0.5px solid rgba(255, 255, 255, 0.15);
+    border-radius: 40px;
 }
 
 nav {
@@ -77,6 +93,7 @@ nav {
     background: linear-gradient(180deg, #fff 40%, rgba(255,255,255,0.2) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    animation: logoGlow 4s ease-in-out infinite;
 }
 
 nav ul {
@@ -140,10 +157,16 @@ nav ul li a:hover { color: #fff; }
 .hero-logo img {
     width: 280px;
     height: 280px;
-    border-radius: 60px; /* Apple Style Squircle */
+    border-radius: 60px;
     object-fit: cover;
     border: 1px solid var(--glass-border);
     box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.hero-logo img:hover {
+    transform: scale(1.05) rotate(2deg);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 20px rgba(255,255,255,0.1);
 }
 
 /* --- CONTAINER & TITLES --- */
@@ -172,6 +195,7 @@ h2 {
     border-radius: 35px;
     padding: 40px;
     text-align: center;
+    transition: 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .about-content p {
@@ -190,7 +214,7 @@ h2 {
 
 .proyek-card {
     background: var(--glass);
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(25px);
     border: 1px solid var(--glass-border);
     border-radius: 30px;
     overflow: hidden;
@@ -199,8 +223,8 @@ h2 {
 }
 
 .proyek-card:hover {
-    transform: translateY(-10px);
-    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-12px) scale(1.02);
+    background: rgba(255, 255, 255, 0.07);
     border-color: rgba(255, 255, 255, 0.3);
 }
 
@@ -294,165 +318,25 @@ footer {
     font-size: 0.8rem;
 }
 
-/* --- MOBILE RESPONSIVE --- */
-@media (max-width: 768px) {
-    header { padding: 1rem 5%; }
-    nav ul { display: none; } /* Sembunyikan menu di mobile atau buat hamburger */
-    
-    .hero {
-        flex-direction: column-reverse;
-        text-align: center;
-        justify-content: center;
-        gap: 30px;
-    }
-    
-    .hero-logo img { width: 200px; height: 200px; }
-    .hero-content h1 { font-size: 2.8rem; }
-    
-    .section-container { padding: 60px 20px; }
-}
-/* --- ANIMASI REVEAL (iOS 26 Style) --- */
+/* --- ANIMASI REVEAL --- */
 @keyframes iosReveal {
-    0% {
-        opacity: 0;
-        transform: translateY(30px) scale(0.95);
-        filter: blur(10px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-        filter: blur(0);
-    }
+    0% { opacity: 0; transform: translateY(30px) scale(0.95); filter: blur(10px); }
+    100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
 }
 
-.reveal {
-    opacity: 0; /* Default sembunyi sebelum di-scroll */
-}
-
-.reveal.active {
-    animation: iosReveal 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-}
-
-/* Delay staggered untuk grid agar muncul bergantian */
-.proyek-card:nth-child(1) { animation-delay: 0.1s; }
-.proyek-card:nth-child(2) { animation-delay: 0.2s; }
-.proyek-card:nth-child(3) { animation-delay: 0.3s; }
-
-/* --- NAVIGATION (iOS 26 Floating Island) --- */
-header {
-    position: fixed;
-    top: 20px; /* Melayang dari atas */
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90%;
-    max-width: 1000px;
-    border-radius: 40px; /* Bentuk kapsul */
-    padding: 0.8rem 2.5%;
-    background: rgba(10, 10, 10, 0.4);
-    backdrop-filter: blur(30px) saturate(200%);
-    -webkit-backdrop-filter: blur(30px) saturate(200%);
-    border: 0.5px solid rgba(255, 255, 255, 0.15);
-    z-index: 1000;
-}
-
-/* Efek Logo Berdenyut Halus */
-.logo {
-    animation: logoGlow 4s ease-in-out infinite;
-}
+.reveal { opacity: 0; }
+.reveal.active { animation: iosReveal 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
 
 @keyframes logoGlow {
     0%, 100% { filter: drop-shadow(0 0 2px rgba(255,255,255,0.1)); }
     50% { filter: drop-shadow(0 0 10px rgba(255,255,255,0.4)); }
 }
 
-/* --- HERO LOGO ANIMATION --- */
-.hero-logo img {
-    width: 280px;
-    height: 280px;
-    border-radius: 60px;
-    transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
-    box-shadow: 0 0 0 rgba(255,255,255,0);
+/* --- MOBILE RESPONSIVE --- */
+@media (max-width: 768px) {
+    header { top: 10px; width: 95%; }
+    nav ul { display: none; }
+    .hero { flex-direction: column-reverse; text-align: center; justify-content: center; gap: 30px; }
+    .hero-logo img { width: 200px; height: 200px; }
+    .hero-content h1 { font-size: 2.8rem; }
 }
-
-.hero-logo img:hover {
-    transform: scale(1.05) rotate(2deg);
-    box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 20px rgba(255,255,255,0.1);
-}
-
-/* --- GLASS CARD REFINEMENT --- */
-.proyek-card, .about-content {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(25px);
-    transition: 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-.proyek-card:hover {
-    background: rgba(255, 255, 255, 0.07);
-    border-color: rgba(255, 255, 255, 0.3);
-    transform: translateY(-12px) scale(1.02);
-}
-
-/* ===============================
-   iOS 26 MODE (SAFE)
-================================ */
-.ios26 {
-    animation: pageFade 1.2s ease forwards;
-}
-
-@keyframes pageFade {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-/* NAVBAR MASUK TANPA OVERRIDE */
-.ios26 header {
-    animation: navDrop 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-@keyframes navDrop {
-    from {
-        opacity: 0;
-        transform: translateX(-50%) translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(-50%) translateY(0);
-    }
-}
-
-/* HERO STAGGER */
-.ios26 .hero-content > * {
-    animation: heroIn 1s ease both;
-}
-
-.ios26 .hero-content p { animation-delay: .15s }
-.ios26 .btn-hero { animation-delay: .3s }
-
-@keyframes heroIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* BUTTON PRESS (TIDAK MENGUBAH HOVER ASLI) */
-.ios26 .btn-hero:active,
-.ios26 .btn-window:active {
-    transform: scale(0.95);
-}
-
-/* PROJECT CARD PRESS */
-.ios26 .proyek-card:active {
-    transform: translateY(-6px) scale(0.97);
-}
-
-/* CURSOR – OPSIONAL */
-.ios26.enable-cursor * {
-    cursor: none;
-}
-
