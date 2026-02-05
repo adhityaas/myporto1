@@ -145,25 +145,7 @@
     <p>© 2026 Adhityaas</p>
   </footer>
 
-<script>
-    const observerOptions = {
-        threshold: 0.15 // Elemen muncul setelah 15% bagian terlihat
-    };
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('active');
-            }
-        });
-    }, observerOptions);
-
-    // Menargetkan elemen yang ingin dianimasikan
-    document.querySelectorAll('.proyek-card, .hero-content, .hero-logo, .about-content, h2, .medsos-item').forEach((el) => {
-        el.classList.add('reveal');
-        observer.observe(el);
-    });
-</script>
 
 </body>
 </html>
